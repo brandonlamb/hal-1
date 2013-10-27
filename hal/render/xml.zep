@@ -39,7 +39,7 @@ class Xml implements Hal\RenderInterface
             doc->addAttribute("href", resource->getUri());
         }
 
-        this->linksForXml(doc, resource->getLinks());
+        this->parseLinks(doc, resource->getLinks());
         this->arrayToXml(resource->getData(), doc);
 
         for rel, resources in resource->getResources() {
@@ -57,7 +57,7 @@ class Xml implements Hal\RenderInterface
     }
 
     /**
-     * linksForXml
+     * parseLinks
      *
      * Add links in hal+xml format to a SimpleXmlElement object.
      *
@@ -65,12 +65,15 @@ class Xml implements Hal\RenderInterface
      * @param Hal\Collection\Link links
      * @return void
      */
-    protected function linksForXml(<\SimpleXmlElement> doc, <Hal\Collection\Link> links)
+    protected function parseLinks(<\SimpleXmlElement> doc, <Hal\Collection\Link> collection)
     {
-        var rel, link, element, attribute, value;
+        var rel, link, links, element, attribute, value;
 
-        for rel, links in links {
+        for rel, links in collection->getData() {
+echo "rel: " . rel . "\n";
+
             for link in links {
+print_r(link);
                 let element = doc->addChild("link");
                 element->addAttribute("rel", rel);
                 element->addAttribute("href", link->getUri());
@@ -154,7 +157,7 @@ class Xml implements Hal\RenderInterface
                     element->addAttribute("href", resource->getUri());
                 }
 
-                this->linksForXml(element, resource->getLinks());
+                this->parseLinks(element, resource->getLinks());
 
                 for innerRel, innerRes in resource->getResources() {
                     this->resourcesForXml(element, innerRel, innerRes);

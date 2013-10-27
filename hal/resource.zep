@@ -55,6 +55,13 @@ class Resource
     protected links;
 
     /**
+     * The Hal\Resource renderer
+     *
+     * @var Hal\RenderInterface
+     */
+    protected renderer;
+
+    /**
      * Construct a new Hal\Resource object from an array of data. You can markup the
      * $data array with certain keys and values in order to affect the
      * generated JSON or XML documents if required to do so.
@@ -83,6 +90,7 @@ class Resource
         let this->uri = uri;
         let this->resources = new Hal\Collection\Resource;
         let this->links = new Hal\Collection\Link();
+        let this->renderer = new Hal\Render\Json();
     }
 
     /**
@@ -132,12 +140,13 @@ class Resource
      * @param Hal\Resource resource
      * @return Hal\Resource
      */
-    public function addResource(string rel, <Hal\Resource> resource = null) -> void
+    public function addResource(string rel, <Hal\Resource> resource = null) -> <Hal\Resource>
     {
         if typeof resource == "null" {
             let resource = new Hal\Resource();
         }
         this->resources->add(rel, resource);
+        return this;
     }
 
     /**
@@ -148,11 +157,12 @@ class Resource
      * @param array attributes Other attributes, as defined by HAL spec and RFC 5988.
      * @return Hal\Resource
      */
-    public function addLink(string rel, string uri, var attributes = null) -> void
+    public function addLink(string rel, string uri, var attributes = null) -> <Hal\Resource>
     {
         var link;
         let link = new Hal\Link(uri, attributes);
         this->links->add(rel, link);
+        return this;
     }
 
     /**
@@ -176,9 +186,22 @@ class Resource
      * @param string $uri
      * @return Hal\Resource
      */
-    public function addCurie(string name, string uri) -> void
+    public function addCurie(string name, string uri) -> <Hal\Resource>
     {
         this->addLink("curies", uri, ["name": name, "templated": true]);
+        return this;
+    }
+
+    /**
+     * Set the renderer object
+     *
+     * @param Hal\RenderInterface renderer
+     * @return Hal\Resource
+     */
+    public function setRenderer(<Hal\RenderInterface> renderer) -> <Hal\Resource>
+    {
+        let this->renderer = renderer;
+        return this;
     }
 
     /**
@@ -187,25 +210,9 @@ class Resource
      * @param bool pretty Enable pretty-printing.
      * @return string
      */
-    public function asJson(boolean pretty = false)
+    public function render(boolean pretty = false)
     {
-        var render;
-        let render = new Hal\Render\Json();
-        return render->render(this, pretty);
-    }
-
-    /**
-     * Return the current object in a application/hal+xml format (links and resources).
-     *
-     * @param bool pretty Enable pretty-printing
-     * @return string
-     * @todo set renderer back to Xml
-     */
-    public function asXml(boolean pretty = false) -> string
-    {
-        var renderer;
-        let renderer = new Hal\Render\Xml();
-        return renderer->render(this, pretty);
+        return this->renderer->render(this, pretty);
     }
 
     /**

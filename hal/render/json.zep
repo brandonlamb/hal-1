@@ -81,7 +81,7 @@ class Json implements Hal\RenderInterface
      * @param array links
      * @return array
      */
-    protected function parseLinks(string uri, <Hal\Collection\Link> container)
+    protected function parseLinks(string uri, <Hal\Collection\Link> collection)
     {
         var data, rel, link, links, attribute, attributes, item, value;
 
@@ -91,7 +91,7 @@ class Json implements Hal\RenderInterface
             let data["self"] = ["href": uri];
         }
 
-        for rel, links in container->getData() {
+        for rel, links in collection->getData() {
             if count(links) == 1 && rel != "curies" {
                 let data[rel] = ["href": links[0]->getUri()];
 
