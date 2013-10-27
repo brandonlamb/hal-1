@@ -54,12 +54,18 @@ class Link
      */
     public function __construct(string uri, var attributes = null)
     {
-        if typeof attributes == "array" {
-            let this->attributes = attributes;
-        } else {
-            let this->attributes = [];
-        }
+        var rel, attrib;
+
         let this->uri = uri;
+
+        let this->attributes = [];
+        if typeof attributes == "array" {
+            for rel, attrib in attributes {
+                if typeof attrib == "array" || attrib != null {
+                    let this->attributes[rel] = attrib;
+                }
+            }
+        }
     }
 
     /**

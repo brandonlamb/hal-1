@@ -64,13 +64,16 @@ class Link implements \Countable
         if isset this->data["curies"] {
             for link in this->data["curies"] {
                 let prefix = strstr(link->getUri(), "{rel}", true);
+
                 if strpos(rel, prefix) == 0 {
                     // looks like it is
                     let shortRel = substr(rel, strlen(prefix));
                     let attrs = link->getAttributes();
-                    let curie = "{" . attrs . "['name']}:" . shortRel;
-                    if isset this->data[curie] {
-                        return this->data[curie];
+                    if isset attrs["name"] {
+                        let curie = attrs["name"] . ":" . shortRel;
+                        if isset this->data[curie] {
+                            return this->data[curie];
+                        }
                     }
                 }
             }

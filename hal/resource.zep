@@ -132,8 +132,11 @@ class Resource
      * @param Hal\Resource resource
      * @return Hal\Resource
      */
-    public function addResource(string rel, <Hal\Resource> resource) -> void
+    public function addResource(string rel, <Hal\Resource> resource = null) -> void
     {
+        if typeof resource == "null" {
+            let resource = new Hal\Resource();
+        }
         this->resources->add(rel, resource);
     }
 
@@ -201,7 +204,7 @@ class Resource
     public function asXml(boolean pretty = false) -> string
     {
         var renderer;
-        let renderer = new Hal\Render\Json();
+        let renderer = new Hal\Render\Xml();
         return renderer->render(this, pretty);
     }
 
@@ -214,8 +217,8 @@ class Resource
      */
     public static function fromJson(var text, int maxDepth = 0) -> <Hal\Resource>
     {
-        var data, uri, link, rel, links, links2,
-            embedded, embed, href, childResource, hal, value;
+        var data, uri, link, rel, links, embed, href,
+        childResource, hal, value, _data, _links, _embedded;
 
         let data = json_decode(text, true);
 
@@ -225,45 +228,67 @@ class Resource
             let uri = "";
         }
 
+        // Loop through links but exclude "self"
         if isset data["_links"] {
-            let links = data["_links"];
+            let _links = [];
+            for rel, links in data["_links"] {
+                if rel != "self" {
+                    let _links[rel] = links;
+                }
+            }
         } else {
-            let links = [];
+            let _links = [];
         }
 
         if isset data["_embedded"] {
-            let embedded = data["_embedded"];
+            let _embedded = data["_embedded"];
         } else {
-            let embedded = [];
+            let _embedded = [];
         }
 
-        unset(data["_links"]["self"]);
-        unset(data["_links"]);
-        unset(data["_embedded"]);
+        // Loop through data and exclude "_links" and "_embedded"
+        let _data = [];
+        for rel, links in data {
+            if rel != "_links" && rel != "_embedded" {
+                let _data[rel] = links;
+            }
+        }
 
-        let hal = new self(uri, data);
+        // Initialize new resource
+        let hal = new self(uri, _data);
 
-        for rel, links2 in links {
-            if !isset links2[0] {
-                let links2 = [links2];
+        // Loop through "_links" and add a new link to the hal resource
+        for rel, links in _links {
+            if !isset links[0] {
+                let link = [links];
+                let links = link;
             }
 
-            if fetch value, links2[0] {
+            if fetch value, links[0] {
                 if typeof value != "array" {
-                    let links2 = [links2];
+                    let link = [links];
+                    let links = link;
                 }
             }
 
-            for link in links2 {
-                let href = link["href"];
-                unset(link["href"]);
-                unset(link["title"]);
+            for link in links {
+                if isset link["href"] {
+                    let href = link["href"];
+                    let link["href"] = null;
+                } else {
+                    let href = "";
+                }
+
+                //if isset link["title"] {
+                //    let link["title"] = null;
+                //}
+
                 hal->addLink(rel, href, link);
             }
         }
 
         if maxDepth > 0 {
-            for rel, embed in embedded {
+            for rel, embed in _embedded {
                 if typeof embed != "array" {
                     hal->addResource(rel, self::fromJson(json_encode(embed), maxDepth - 1));
                 } else {

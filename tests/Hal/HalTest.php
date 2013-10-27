@@ -121,7 +121,6 @@ class HalTest extends \PHPUnit_Framework_TestCase
             'title' => 'My Test'
         ));
 
-die(print_r($hal->asJson()));
         $result = json_decode($hal->asJson());
         $this->assertEquals('#foo', $result->_links->test->anchor);
         $this->assertEquals('canonical', $result->_links->test->rev);
@@ -133,7 +132,6 @@ die(print_r($hal->asJson()));
         $this->assertEquals('My Test', $result->_links->test->title);
     }
 
-/*
     public function testLinkAttributesInJsonWithArrayOfLinks()
     {
         $hal = new Hal\Resource('http://example.com/');
@@ -192,9 +190,10 @@ die(print_r($hal->asJson()));
 
         $this->assertEquals($x->asJson(true), $y->asJson(true));
     }
-*/
-/*
 
+    /**
+     * @todo uncomment xml stuff
+     */
     public function testBooleanOutput()
     {
         $hal = new Hal\Resource('/', array(
@@ -202,9 +201,9 @@ die(print_r($hal->asJson()));
             'bar' => false
         ));
 
-        $xml = new \SimpleXMLElement($hal->asXml());
-        $this->assertSame('1', (string)$xml->foo);
-        $this->assertSame('0', (string)$xml->bar);
+#        $xml = new \SimpleXMLElement($hal->asXml());
+#        $this->assertSame('1', (string)$xml->foo);
+#        $this->assertSame('0', (string)$xml->bar);
 
         $json = json_decode($hal->asJson());
         $this->assertTrue($json->foo);
@@ -235,7 +234,6 @@ die(print_r($hal->asJson()));
     {
         $x = new Hal\Resource('/orders');
         $x->addCurie('acme', 'http://docs.acme.com/relations/{rel}');
-
         $x->addLink('acme:test', '/widgets');
 
         $links = $x->getLink('http://docs.acme.com/relations/test');
@@ -250,10 +248,11 @@ die(print_r($hal->asJson()));
 
     public function testJSONEmptyEmbeddedCollection(){
         $x = new Hal\Resource();
-        $x->addResource('collection');
+        $x->addResource('collection', new Hal\Resource());
 
         $this->assertEquals('{"_embedded":{"collection":[]}}', $x->asJson());
     }
+
     public function testLinksWithAttributesUnserialiseCorrectlyJson()
     {
         $x = new Hal\Resource('/');
@@ -261,6 +260,7 @@ die(print_r($hal->asJson()));
 
         $this->assertEquals($x->asJson(), Hal\Resource::fromJson($x->asJson())->asJson());
     }
+
     public function testResourceWithNullSelfLinkRendersLinksInJson()
     {
         $x = new Hal\Resource(null);
@@ -268,5 +268,4 @@ die(print_r($hal->asJson()));
         $data = json_decode($x->asJson());
         $this->assertEquals('http://test', $data->_links->testrel->href);
     }
-*/
 }
