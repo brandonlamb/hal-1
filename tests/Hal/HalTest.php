@@ -7,33 +7,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package Nocarrier
+ * @package Hal
  */
 
-namespace Nocarrier\Tests;
+namespace Hal\Tests;
 
-require_once 'vendor/autoload.php';
-
-use \Nocarrier\Hal;
+use Hal;
 
 /**
  * HalTest
  *
- * @package Nocarrier
+ * @package Hal
  * @subpackage Tests
  * @author Ben Longden <ben@nocarrier.co.uk>
+ * @author Brandon Lamb <brandon@brandonlamb.com>
  */
 class HalTest extends \PHPUnit_Framework_TestCase
 {
     public function testHalJsonResponseAllowsNoSelfLink()
     {
-        $hal = new Hal();
+        $hal = new Hal\Resource();
         $this->assertEquals('[]', $hal->asJson());
     }
 
     public function testHalXmlResponseAllowsNoSelfLink()
     {
-        $hal = new Hal();
+        $hal = new Hal\Resource();
         $this->assertEquals("<?xml version=\"1.0\"?>\n<resource/>\n", $hal->asXml());
     }
 
@@ -250,8 +249,8 @@ EOD;
     }
 
     /**
-     * @covers \Nocarrier\Hal::addLink
-     * @covers \Nocarrier\HalJsonRenderer::linksForJson
+     * @covers \Hal\Hal::addLink
+     * @covers \Hal\HalJsonRenderer::linksForJson
      */
     public function testLinkAttributesInJson()
     {
@@ -279,7 +278,7 @@ EOD;
     }
 
     /**
-     * @covers \Nocarrier\HalJsonRenderer::linksForJson
+     * @covers \Hal\HalJsonRenderer::linksForJson
      * Provided for code coverage
      */
     public function testLinkAttributesInJsonWithArrayOfLinks()
@@ -319,8 +318,8 @@ EOD;
     }
 
     /**
-     * @covers \Nocarrier\Hal::addLink
-     * @covers \Nocarrier\HalXmlRenderer::linksForXml
+     * @covers \Hal\Hal::addLink
+     * @covers \Hal\HalXmlRenderer::linksForXml
      */
     public function testLinkAttributesInXml()
     {
@@ -347,7 +346,7 @@ EOD;
     }
 
     /**
-     * @covers \Nocarrier\HalXmlRenderer::linksForXml
+     * @covers \Hal\HalXmlRenderer::linksForXml
      * Provided for code coverage.
      */
     public function testLinkAttributesInXmlWithArrayOfLinks()
@@ -507,7 +506,7 @@ EOD;
     {
         $x = new Hal('/orders');
         $x->addCurie('acme', 'http://docs.acme.com/relations/{rel}');
-    
+
         $x->addLink('acme:test', '/widgets');
 
         $links = $x->getLink('http://docs.acme.com/relations/test');
@@ -521,14 +520,14 @@ EOD;
     }
 
     public function testJSONEmptyEmbeddedCollection(){
-        $x = new Hal();
+        $x = new Hal\Resource();
         $x->addResource('collection');
 
         $this->assertEquals('{"_embedded":{"collection":[]}}', $x->asJson());
     }
 
     public function testXMLEmptyEmbeddedCollection(){
-        $x = new Hal();
+        $x = new Hal\Resource();
         $x->addResource('collection');
         $response = <<<EOD
 <?xml version="1.0"?>

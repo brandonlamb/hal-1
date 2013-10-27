@@ -2,7 +2,7 @@
 
 <phpunit colors="true" stopOnFailure="false" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true">
     <testsuites>
-        <testsuite name="Nocarrier Hal Test Suite">
+        <testsuite name="Hal Test Suite">
             <directory>./tests/Hal/</directory>
         </testsuite>
     </testsuites>
