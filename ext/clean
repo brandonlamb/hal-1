@@ -1,0 +1,5 @@
+#!/bin/bash
+make clean
+phpize --clean
+rm hal.c hal.h config.m4
+rm -r hal

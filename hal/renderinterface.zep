@@ -1,4 +1,3 @@
-<?php
 /**
  * This file is part of the Hal library
  *
@@ -7,25 +6,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package Nocarrier
+ * @package Hal
  */
-namespace Nocarrier;
+
+namespace Hal;
 
 /**
+ * Hal\RenderInterface
  * The Hal Renderer Interface
  *
- * @package Nocarrier
+ * @package Hal
  * @author Ben Longden <ben@nocarrier.co.uk>
+ * @author Brandon Lamb <brandon@brandonlamb.com>
  */
-interface HalRenderer
+
+interface RenderInterface
 {
     /**
      * Render the Hal resource in the appropriate form.
      *
      * Returns a string representation of the resource.
      *
-     * @param \Nocarrier\Hal $resource
-     * @param $pretty
+     * @param Hal $resource
+     * @param bool $pretty
+     * @return string
      */
-    public function render(Hal $resource, $pretty);
+    public function render(<\Hal\Resource> resource, boolean pretty) -> string;
 }
