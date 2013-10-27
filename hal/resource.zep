@@ -184,11 +184,11 @@ class Resource
      * @param bool pretty Enable pretty-printing.
      * @return string
      */
-    public function asJson(boolean pretty = false) -> string
+    public function asJson(boolean pretty = false)
     {
-        var renderer;
-        let renderer = new Hal\Render\Json();
-        return renderer->render(this, pretty);
+        var render;
+        let render = new Hal\Render\Json();
+        return render->render(this, pretty);
     }
 
     /**

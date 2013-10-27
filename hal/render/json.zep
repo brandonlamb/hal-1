@@ -31,6 +31,7 @@ class Json implements Hal\RenderInterface
      */
     public function render(<Hal\Resource> resource, boolean pretty)
     {
+        var data;
         int options = 0;
 
         if version_compare(PHP_VERSION, "5.4.0") >= 0 && pretty {
@@ -38,7 +39,8 @@ class Json implements Hal\RenderInterface
             let options = JSON_PRETTY_PRINT;
         }
 
-        return json_encode(this->parseResource(resource), options);
+        let data = json_encode(this->parseResource(resource), options);
+        return data;
     }
 
     /**
@@ -81,7 +83,7 @@ class Json implements Hal\RenderInterface
      */
     protected function parseLinks(string uri, <Hal\Collection\Link> container)
     {
-        var data, rel, link, links, attribute, item, value;
+        var data, rel, link, links, attribute, attributes, item, value;
 
         let data = [];
 
@@ -92,8 +94,11 @@ class Json implements Hal\RenderInterface
         for rel, links in container->getData() {
             if count(links) == 1 && rel != "curies" {
                 let data[rel] = ["href": links[0]->getUri()];
+
                 for attribute, value in links[0]->getAttributes() {
-                    let data[rel][attribute] = value;
+                    let attributes = data[rel];
+                    let attributes[attribute] = value;
+                    let data[rel] = attributes;
                 }
             } else {
                 let data[rel] = [];
