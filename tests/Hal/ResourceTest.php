@@ -56,6 +56,25 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Hal\Resource::getResources
+     * @covers \Hal\Resource::addResource
+     * @covers \Hal\Collection\Resource::count
+     * @covers \Hal\Collection\Resource::getData
+     */
+    public function testGetResources()
+    {
+        $res = new Hal\Resource($this->uri);
+        $this->assertInstanceOf('Hal\\Collection\\Resource', $res->getResources());
+
+        $res->addResource('example', new Hal\Resource($this->uri . '/test1'));
+        $this->assertEquals(1, count($res->getResources()));
+        $this->assertEquals(1, count($res->getResources()->getData()));
+
+        $res->addResource('example', new Hal\Resource($this->uri . '/test2'));
+        $this->assertEquals(2, count($res->getResource('example')));
+    }
+
+    /**
      * @covers Hal\Resource::addLink
      * @covers Hal\Resource::getLink
      */

@@ -232,6 +232,35 @@ PHP_METHOD(Hal_Resource, addResource) {
 }
 
 /**
+ * Lookup and return an array of Hal\Resource objects for a given relation.
+ *
+ * @param string rel The resource relation required
+ * @return array|bool Array of Hal\Resource objects if found. Otherwise false.
+ */
+PHP_METHOD(Hal_Resource, getResource) {
+
+	zval *rel_param = NULL, *_0;
+	zval *rel = NULL;
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &rel_param);
+
+		if (Z_TYPE_P(rel_param) != IS_STRING) {
+				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'rel' must be a string") TSRMLS_CC);
+				RETURN_MM_NULL();
+		}
+
+		rel = rel_param;
+
+
+
+	_0 = zephir_fetch_nproperty_this(this_ptr, SL("resources"), PH_NOISY_CC);
+	zephir_call_method_p1(return_value, _0, "get", rel);
+	RETURN_MM();
+
+}
+
+/**
  * Add a link to the resource, identified by rel, located at uri.
  *
  * @param string rel

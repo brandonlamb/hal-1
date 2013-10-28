@@ -88,7 +88,7 @@ class Resource
             let this->data = [];
         }
         let this->uri = uri;
-        let this->resources = new Hal\Collection\Resource;
+        let this->resources = new Hal\Collection\Resource();
         let this->links = new Hal\Collection\Link();
         let this->renderer = new Hal\Render\Json();
     }
@@ -147,6 +147,17 @@ class Resource
         }
         this->resources->add(rel, resource);
         return this;
+    }
+
+    /**
+     * Lookup and return an array of Hal\Resource objects for a given relation.
+     *
+     * @param string rel The resource relation required
+     * @return array|bool Array of Hal\Resource objects if found. Otherwise false.
+     */
+    public function getResource(string! rel)
+    {
+        return this->resources->get(rel);
     }
 
     /**
