@@ -55,15 +55,8 @@ class Resource
     protected links;
 
     /**
-     * The Hal\Resource renderer
-     *
-     * @var Hal\RenderInterface
-     */
-    protected renderer;
-
-    /**
      * Construct a new Hal\Resource object from an array of data. You can markup the
-     * $data array with certain keys and values in order to affect the
+     * data array with certain keys and values in order to affect the
      * generated JSON or XML documents if required to do so.
      *
      * "@" prefix on any array key will cause the value to be set as an
@@ -90,7 +83,6 @@ class Resource
         let this->uri = uri;
         let this->resources = new Hal\Collection\Resource();
         let this->links = new Hal\Collection\Link();
-        let this->renderer = new Hal\Render\Json();
     }
 
     /**
@@ -134,7 +126,7 @@ class Resource
     }
 
     /**
-     * Add an embedded resource, identified by $rel and represented by $resource.
+     * Add an embedded resource, identified by rel and represented by resource.
      *
      * @param string rel
      * @param Hal\Resource resource
@@ -187,14 +179,14 @@ class Resource
         return this->links->get(rel);
     }
 
-   /**
+    /**
      * Create a CURIE link template, used for abbreviating custom link relations.
      *
      * $hal->addCurie("acme", "http://.../rels/{rel}");
      * $hal->addLink("acme:test", "http://.../test");
      *
-     * @param string $name
-     * @param string $uri
+     * @param string name
+     * @param string uri
      * @return Hal\Resource
      */
     public function addCurie(string! name, string! uri) -> <Hal\Resource>
@@ -204,25 +196,12 @@ class Resource
     }
 
     /**
-     * Set the renderer object
+     * Fetch a curie if it exists
      *
-     * @param Hal\RenderInterface renderer
-     * @return Hal\Resource
+     * @param string rel
+     * @todo - implement later
      */
-    public function setRenderer(<Hal\RenderInterface> renderer) -> <Hal\Resource>
+    public function getCurie(string! rel)
     {
-        let this->renderer = <Hal\RenderInterface> renderer;
-        return this;
-    }
-
-    /**
-     * Return the current object in a application/hal+json format (links and resources).
-     *
-     * @param bool pretty Enable pretty-printing.
-     * @return string
-     */
-    public function render(boolean pretty = false) -> string
-    {
-        return this->renderer->render(this, pretty);
     }
 }

@@ -31,26 +31,12 @@ $hal->addResource('order', $resource);
 This is still under consideration. There seems to be a few different ways with pros/cons to each
 
 ```php
-// Method 1 - Hal\Resource has a helper method for each render type
-echo $hal->asJson();
-echo $hal->asXml();
-
-// Method 2 - Hal\Resource accepts a render type via setRenderer
-$hal->setRenderer(new Hal\Render\Json);
-echo $hal->render();
-
-// Method 3 - Creation and call of render is done outside of Hal\Resource
+// Method 1
 $renderer = new Hal\Renderer\Json;
 echo $renderer->render($hal);
-//-- OR --//
+
+// Method 2
 echo new Hal\Render\Json()->render($hal);
-
-// Method 4 - Have static methods on renderers
-echo Hal\Render\Json::render($hal);
-
-// Method 5 - Have a class responsible for all rendering
-$render = new Hal\Render;
-$render->asJson($hal);
 ```
 
 ## Installation

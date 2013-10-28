@@ -71,12 +71,6 @@ ZEPHIR_INIT_CLASS(Hal_Resource) {
      * @var Hal\Collection\Link
      */
 	zend_declare_property_null(hal_resource_ce, SL("links"), ZEND_ACC_PROTECTED TSRMLS_CC);
-/**
-     * The Hal\Resource renderer
-     *
-     * @var Hal\RenderInterface
-     */
-	zend_declare_property_null(hal_resource_ce, SL("renderer"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	return SUCCESS;
 
@@ -84,7 +78,7 @@ ZEPHIR_INIT_CLASS(Hal_Resource) {
 
 /**
  * Construct a new Hal\Resource object from an array of data. You can markup the
- * $data array with certain keys and values in order to affect the
+ * data array with certain keys and values in order to affect the
  * generated JSON or XML documents if required to do so.
  *
  * "@" prefix on any array key will cause the value to be set as an
@@ -103,7 +97,7 @@ ZEPHIR_INIT_CLASS(Hal_Resource) {
  */
 PHP_METHOD(Hal_Resource, __construct) {
 
-	zval *uri_param = NULL, *data = NULL, *_0 = NULL, *_1, *_2;
+	zval *uri_param = NULL, *data = NULL, *_0 = NULL, *_1;
 	zval *uri = NULL;
 
 	ZEPHIR_MM_GROW();
@@ -136,9 +130,6 @@ PHP_METHOD(Hal_Resource, __construct) {
 	object_init_ex(_1, hal_collection_link_ce);
 	zephir_call_method_noret(_1, "__construct");
 	zephir_update_property_this(this_ptr, SL("links"), _1 TSRMLS_CC);
-	ZEPHIR_INIT_VAR(_2);
-	object_init_ex(_2, hal_render_json_ce);
-	zephir_update_property_this(this_ptr, SL("renderer"), _2 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 
 }
@@ -192,7 +183,7 @@ PHP_METHOD(Hal_Resource, getLinks) {
 }
 
 /**
- * Add an embedded resource, identified by $rel and represented by $resource.
+ * Add an embedded resource, identified by rel and represented by resource.
  *
  * @param string rel
  * @param Hal\Resource resource
@@ -338,8 +329,8 @@ PHP_METHOD(Hal_Resource, getLink) {
  * $hal->addCurie("acme", "http://.../rels/{rel}");
  * $hal->addLink("acme:test", "http://.../test");
  *
- * @param string $name
- * @param string $uri
+ * @param string name
+ * @param string uri
  * @return Hal\Resource
  */
 PHP_METHOD(Hal_Resource, addCurie) {
@@ -378,48 +369,28 @@ PHP_METHOD(Hal_Resource, addCurie) {
 }
 
 /**
- * Set the renderer object
+ * Fetch a curie if it exists
  *
- * @param Hal\RenderInterface renderer
- * @return Hal\Resource
+ * @param string rel
+ * @todo - implement later
  */
-PHP_METHOD(Hal_Resource, setRenderer) {
+PHP_METHOD(Hal_Resource, getCurie) {
 
-	zval *renderer;
-
-	zephir_fetch_params(0, 1, 0, &renderer);
-
-
-
-	zephir_update_property_this(this_ptr, SL("renderer"), renderer TSRMLS_CC);
-	RETURN_THISW();
-
-}
-
-/**
- * Return the current object in a application/hal+json format (links and resources).
- *
- * @param bool pretty Enable pretty-printing.
- * @return string
- */
-PHP_METHOD(Hal_Resource, render) {
-
-	zval *pretty_param = NULL, *_0;
-	zend_bool pretty;
+	zval *rel_param = NULL;
+	zval *rel = NULL;
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 1, &pretty_param);
+	zephir_fetch_params(1, 1, 0, &rel_param);
 
-	if (!pretty_param) {
-		pretty = 0;
-	} else {
-		pretty = zephir_get_boolval(pretty_param);
-	}
+		if (Z_TYPE_P(rel_param) != IS_STRING) {
+				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'rel' must be a string") TSRMLS_CC);
+				RETURN_MM_NULL();
+		}
+
+		rel = rel_param;
 
 
-	_0 = zephir_fetch_nproperty_this(this_ptr, SL("renderer"), PH_NOISY_CC);
-	zephir_call_method_p2(return_value, _0, "render", this_ptr, (pretty ? ZEPHIR_GLOBAL(global_true) : ZEPHIR_GLOBAL(global_false)));
-	RETURN_MM();
+
 
 }
 

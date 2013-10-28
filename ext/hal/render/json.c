@@ -67,7 +67,7 @@ PHP_METHOD(Hal_Render_Json, render) {
 
 
 	ZEPHIR_SINIT_VAR(_0);
-	ZVAL_STRING(&_0, "5.5.5-1+debphp.org~precise+1", 0);
+	ZVAL_STRING(&_0, "5.5.5-1+debphp.org~saucy+1", 0);
 	ZEPHIR_SINIT_VAR(_1);
 	ZVAL_STRING(&_1, "5.4.0", 0);
 	ZEPHIR_INIT_VAR(_2);

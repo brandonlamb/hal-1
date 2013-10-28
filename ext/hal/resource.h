@@ -13,8 +13,7 @@ PHP_METHOD(Hal_Resource, getResource);
 PHP_METHOD(Hal_Resource, addLink);
 PHP_METHOD(Hal_Resource, getLink);
 PHP_METHOD(Hal_Resource, addCurie);
-PHP_METHOD(Hal_Resource, setRenderer);
-PHP_METHOD(Hal_Resource, render);
+PHP_METHOD(Hal_Resource, getCurie);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource___construct, 0, 0, 0)
 	ZEND_ARG_INFO(0, uri)
@@ -45,12 +44,8 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_addcurie, 0, 0, 2)
 	ZEND_ARG_INFO(0, uri)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_setrenderer, 0, 0, 1)
-	ZEND_ARG_INFO(0, renderer)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_render, 0, 0, 0)
-	ZEND_ARG_INFO(0, pretty)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_getcurie, 0, 0, 1)
+	ZEND_ARG_INFO(0, rel)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(hal_resource_method_entry) {
@@ -64,7 +59,6 @@ ZEPHIR_INIT_FUNCS(hal_resource_method_entry) {
 	PHP_ME(Hal_Resource, addLink, arginfo_hal_resource_addlink, ZEND_ACC_PUBLIC)
 	PHP_ME(Hal_Resource, getLink, arginfo_hal_resource_getlink, ZEND_ACC_PUBLIC)
 	PHP_ME(Hal_Resource, addCurie, arginfo_hal_resource_addcurie, ZEND_ACC_PUBLIC)
-	PHP_ME(Hal_Resource, setRenderer, arginfo_hal_resource_setrenderer, ZEND_ACC_PUBLIC)
-	PHP_ME(Hal_Resource, render, arginfo_hal_resource_render, ZEND_ACC_PUBLIC)
+	PHP_ME(Hal_Resource, getCurie, arginfo_hal_resource_getcurie, ZEND_ACC_PUBLIC)
 	PHP_FE_END
 };
