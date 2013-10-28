@@ -24,12 +24,25 @@ $resource = new Hal\Resource(
 
 $resource->addLink('customer', '/customer/bob', ['title' => 'Bob Jones <bob@jones.com>']);
 $hal->addResource('order', $resource);
+```
 
-// Interface 1
+## Rendering API
+
+This is still under consideration. There seems to be a few different ways with pros/cons to each
+
+```php
+// Method 1 - Hal\Resource has a helper method for each render type
 echo $hal->asJson();
 echo $hal->asXml();
 
-// Interface 2
+// Method 2 - Hal\Resource accepts a render type via setRenderer
+$hal->setRenderer(new Hal\Render\Json);
+echo $hal->render();
+
+// Method 3 - Creation and call of render is done outside of Hal\Resource
+$renderer = new Hal\Renderer\Json;
+echo $renderer->render($hal);
+//-- OR --//
 echo new Hal\Render\Json()->render($hal);
 ```
 
