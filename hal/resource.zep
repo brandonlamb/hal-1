@@ -80,7 +80,7 @@ class Resource
      * @param string uri
      * @param array data
      */
-    public function __construct(string uri = null, var data = null)
+    public function __construct(string! uri = null, var data = null)
     {
         if typeof data == "array" {
             let this->data = data;
@@ -140,7 +140,7 @@ class Resource
      * @param Hal\Resource resource
      * @return Hal\Resource
      */
-    public function addResource(string rel, <Hal\Resource> resource = null) -> <Hal\Resource>
+    public function addResource(string! rel, <Hal\Resource> resource = null) -> <Hal\Resource>
     {
         if typeof resource == "null" {
             let resource = new Hal\Resource();
@@ -157,7 +157,7 @@ class Resource
      * @param array attributes Other attributes, as defined by HAL spec and RFC 5988.
      * @return Hal\Resource
      */
-    public function addLink(string rel, string uri, var attributes = null) -> <Hal\Resource>
+    public function addLink(string! rel, string! uri, var attributes = null) -> <Hal\Resource>
     {
         var link;
         let link = new Hal\Link(uri, attributes);
@@ -171,7 +171,7 @@ class Resource
      * @param string rel The link relation required
      * @return array|bool Array of Hal\Link objects if found. Otherwise false.
      */
-    public function getLink(string rel)
+    public function getLink(string! rel)
     {
         return this->links->get(rel);
     }
@@ -186,7 +186,7 @@ class Resource
      * @param string $uri
      * @return Hal\Resource
      */
-    public function addCurie(string name, string uri) -> <Hal\Resource>
+    public function addCurie(string! name, string! uri) -> <Hal\Resource>
     {
         this->addLink("curies", uri, ["name": name, "templated": true]);
         return this;

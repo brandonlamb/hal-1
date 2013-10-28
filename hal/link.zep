@@ -52,7 +52,7 @@ class Link
      * @param string uri The URI represented by this link.
      * @param array attributes Any additional attributes.
      */
-    public function __construct(string uri, var attributes = null)
+    public function __construct(string! uri, var attributes = null)
     {
         var rel, attrib;
 

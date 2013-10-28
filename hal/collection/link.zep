@@ -51,7 +51,7 @@ class Link implements \Countable
      * @param string rel The link relation required
      * @return array|bool Link if found, therwise false
      */
-    public function get(string rel)
+    public function get(string! rel)
     {
         var prefix, link, shortRel, attrs, curie;
 
@@ -88,7 +88,7 @@ class Link implements \Countable
      * @param string rel
      * @param Hal\Link link
      */
-    public function add(string rel, <Hal\Link> link) -> void
+    public function add(string! rel, <Hal\Link> link) -> void
     {
         var value;
         if fetch value, this->data[rel] {

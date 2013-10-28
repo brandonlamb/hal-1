@@ -10,7 +10,7 @@
  * @package Hal
  */
 
-namespace Hal\Tests;
+namespace Hal\Tests\Render;
 
 use Hal;
 
@@ -22,21 +22,23 @@ use Hal;
  * @author Ben Longden <ben@nocarrier.co.uk>
  * @author Brandon Lamb <brandon@brandonlamb.com>
  */
-class HalTest extends \PHPUnit_Framework_TestCase
+class JsonTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Test rendering of essentially a blank Hal resource
+     *
+     * @covers \Hal\Resource::render
+     */
     public function testHalJsonResponseAllowsNoSelfLink()
     {
         $hal = new Hal\Resource();
         $this->assertEquals('[]', $hal->render());
     }
 
-    public function testHalXmlResponseAllowsNoSelfLink()
-    {
-        $hal = new Hal\Resource();
-        $hal->setRenderer(new Hal\Render\Xml());
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<resource/>\n", $hal->render());
-    }
-
+    /**
+     *
+     * @covers \Hal\Resource::render
+     */
     public function testHalResponseReturnsSelfLinkJson()
     {
         $hal = new Hal\Resource('http://example.com/');

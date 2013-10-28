@@ -16,13 +16,13 @@ $hal->addLink('search', '/orders?id={order_id}');
 
 $resource = new Hal\Resource(
     '/orders/123',
-    array(
+    ]
         'total' => 30.00,
         'currency' => 'USD',
-    )
+    ]
 );
 
-$resource->addLink('customer', '/customer/bob', array('title' => 'Bob Jones <bob@jones.com>'));
+$resource->addLink('customer', '/customer/bob', ['title' => 'Bob Jones <bob@jones.com>']);
 $hal->addResource('order', $resource);
 echo $hal->asJson();
 echo $hal->asXml();
