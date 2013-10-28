@@ -44,6 +44,13 @@ $renderer = new Hal\Renderer\Json;
 echo $renderer->render($hal);
 //-- OR --//
 echo new Hal\Render\Json()->render($hal);
+
+// Method 4 - Have static methods on renderers
+echo Hal\Render\Json::render($hal);
+
+// Method 5 - Have a class responsible for all rendering
+$render = new Hal\Render;
+$render->asJson($hal);
 ```
 
 ## Installation
