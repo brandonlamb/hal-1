@@ -23,6 +23,7 @@ zend_class_entry *hal_link_ce;
 zend_class_entry *hal_render_json_ce;
 zend_class_entry *hal_render_xml_ce;
 zend_class_entry *hal_resource_ce;
+zend_class_entry *hal_resourcefactory_ce;
 
 ZEND_DECLARE_MODULE_GLOBALS(hal)
 
@@ -35,6 +36,7 @@ PHP_MINIT_FUNCTION(hal){
 	ZEPHIR_INIT(Hal_Render_Json);
 	ZEPHIR_INIT(Hal_Render_Xml);
 	ZEPHIR_INIT(Hal_Resource);
+	ZEPHIR_INIT(Hal_ResourceFactory);
 	return SUCCESS;
 }
 

@@ -423,21 +423,21 @@ EOD;
     public function testMinimalHalJsonDecoding()
     {
         $sample = '{"_links":{"self":{"href":"http:\/\/example.com\/"}}}';
-        $hal = Hal\Resource::fromJson($sample);
+        $hal = Hal\ResourceFactory::fromJson($sample);
         $this->assertEquals($sample, $hal->render());
     }
 
     public function testHalJsonDecodeWithData()
     {
         $sample = '{"_links":{"self":{"href":"http:\/\/example.com\/"}},"key":"value"}';
-        $data = Hal\Resource::fromJson($sample)->getData();
+        $data = Hal\ResourceFactory::fromJson($sample)->getData();
         $this->assertEquals('value', $data['key']);
     }
 
     public function testMinimalHalXmlDecoding()
     {
         $sample = "<?xml version=\"1.0\"?>\n<resource href=\"http://example.com/\"/>\n";
-        $hal = Hal\Resource::fromXml($sample);
+        $hal = Hal\ResourceFactory::fromXml($sample);
         $hal->setRenderer(new Hal\Render\Xml());
         $this->assertEquals($sample, $hal->render());
     }
@@ -445,7 +445,7 @@ EOD;
     public function testHalXmlDecodeWithData()
     {
         $sample = "<?xml version=\"1.0\"?>\n<resource href=\"http://example.com/\"><key>value</key></resource>\n";
-        $data = Hal\Resource::fromXml($sample)->getData();
+        $data = Hal\ResourceFactory::fromXml($sample)->getData();
         $this->assertEquals('value', $data['key']);
     }
 
@@ -453,7 +453,7 @@ EOD;
     {
         $x = new Hal\Resource('/test', array('name' => "Ben Longden"));
         $x->addLink('a', '/a');
-        $y = Hal\Resource::fromJson($x->render());
+        $y = Hal\ResourceFactory::fromJson($x->render());
 
         $this->assertEquals($x->render(true), $y->render(true));
     }
@@ -463,7 +463,7 @@ EOD;
         $hal = new Hal\Resource('/test', array('name' => "Ben Longden"));
         $hal->setRenderer(new Hal\Render\Xml());
         $hal->addLink('a', '/a');
-        $y = Hal\Resource::fromXml($hal->render());
+        $y = Hal\ResourceFactory::fromXml($hal->render());
         $this->assertEquals($hal->render(), $y->render());
     }
 
@@ -564,7 +564,7 @@ EOD;
         $x = new Hal\Resource('/');
         $x->addCurie('x:test', 'http://test');
 
-        $this->assertEquals($x->render(), Hal\Resource::fromJson($x->render())->render());
+        $this->assertEquals($x->render(), Hal\ResourceFactory::fromJson($x->render())->render());
     }
 
     public function testLinksWithAttributesUnserialiseCorrectlyXml()
@@ -573,7 +573,7 @@ EOD;
         $hal->setRenderer(new Hal\Render\Xml());
         $hal->addCurie('x:test', 'http://test');
 
-        $this->assertEquals($hal->render(), Hal\Resource::fromXml($hal->render())->render());
+        $this->assertEquals($hal->render(), Hal\ResourceFactory::fromXml($hal->render())->render());
     }
 
     public function testResourceWithNullSelfLinkRendersLinksInJson()

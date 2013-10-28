@@ -54,7 +54,7 @@ class Json implements Hal\RenderInterface
     {
         var data, links, resources;
 
-        if typeof resource == "null" {
+        if typeof resource != "object" {
             return [];
         }
 

@@ -101,7 +101,7 @@ PHP_METHOD(Hal_Render_Json, parseResource) {
 
 
 
-	if ((Z_TYPE_P(resource) == IS_NULL)) {
+	if ((Z_TYPE_P(resource) != IS_OBJECT)) {
 		array_init(return_value);
 		RETURN_MM();
 	}

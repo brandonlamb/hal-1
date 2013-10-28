@@ -15,8 +15,6 @@ PHP_METHOD(Hal_Resource, getLink);
 PHP_METHOD(Hal_Resource, addCurie);
 PHP_METHOD(Hal_Resource, setRenderer);
 PHP_METHOD(Hal_Resource, render);
-PHP_METHOD(Hal_Resource, fromJson);
-PHP_METHOD(Hal_Resource, fromXml);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource___construct, 0, 0, 0)
 	ZEND_ARG_INFO(0, uri)
@@ -55,15 +53,6 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_render, 0, 0, 0)
 	ZEND_ARG_INFO(0, pretty)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_fromjson, 0, 0, 1)
-	ZEND_ARG_INFO(0, text)
-	ZEND_ARG_INFO(0, maxDepth)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_fromxml, 0, 0, 1)
-	ZEND_ARG_INFO(0, text)
-ZEND_END_ARG_INFO()
-
 ZEPHIR_INIT_FUNCS(hal_resource_method_entry) {
 	PHP_ME(Hal_Resource, __construct, arginfo_hal_resource___construct, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
 	PHP_ME(Hal_Resource, getUri, NULL, ZEND_ACC_PUBLIC)
@@ -77,7 +66,5 @@ ZEPHIR_INIT_FUNCS(hal_resource_method_entry) {
 	PHP_ME(Hal_Resource, addCurie, arginfo_hal_resource_addcurie, ZEND_ACC_PUBLIC)
 	PHP_ME(Hal_Resource, setRenderer, arginfo_hal_resource_setrenderer, ZEND_ACC_PUBLIC)
 	PHP_ME(Hal_Resource, render, arginfo_hal_resource_render, ZEND_ACC_PUBLIC)
-	PHP_ME(Hal_Resource, fromJson, arginfo_hal_resource_fromjson, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-	PHP_ME(Hal_Resource, fromXml, arginfo_hal_resource_fromxml, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

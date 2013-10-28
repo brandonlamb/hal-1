@@ -24,8 +24,13 @@ $resource = new Hal\Resource(
 
 $resource->addLink('customer', '/customer/bob', ['title' => 'Bob Jones <bob@jones.com>']);
 $hal->addResource('order', $resource);
+
+// Interface 1
 echo $hal->asJson();
 echo $hal->asXml();
+
+// Interface 2
+echo new Hal\Render\Json()->render($hal);
 ```
 
 ## Installation

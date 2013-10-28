@@ -9,5 +9,6 @@
 #include "hal/render/xml.h"
 #include "hal/renderinterface.h"
 #include "hal/resource.h"
+#include "hal/resourcefactory.h"
 
 #endif
