@@ -92,7 +92,7 @@ PHP_METHOD(Hal_Link, __construct) {
 
 		uri = uri_param;
 
-	if (!attributes) {
+	if (!attributes || Z_TYPE_P(attributes) == IS_NULL) {
 		attributes = ZEPHIR_GLOBAL(global_null);
 	}
 

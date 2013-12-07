@@ -206,7 +206,7 @@ PHP_METHOD(Hal_Render_Xml, arrayToXml) {
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 1, &data, &element, &parent);
 
-	if (!parent) {
+	if (!parent || Z_TYPE_P(parent) == IS_NULL) {
 		parent = ZEPHIR_GLOBAL(global_null);
 	}
 

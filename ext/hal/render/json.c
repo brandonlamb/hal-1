@@ -67,7 +67,7 @@ PHP_METHOD(Hal_Render_Json, render) {
 
 
 	ZEPHIR_SINIT_VAR(_0);
-	ZVAL_STRING(&_0, "5.5.5-1+debphp.org~saucy+1", 0);
+	ZVAL_STRING(&_0, "5.5.6-1+debphp.org~precise+2", 0);
 	ZEPHIR_SINIT_VAR(_1);
 	ZVAL_STRING(&_1, "5.4.0", 0);
 	ZEPHIR_INIT_VAR(_2);
@@ -247,10 +247,10 @@ PHP_METHOD(Hal_Render_Json, parseLinks) {
  */
 PHP_METHOD(Hal_Render_Json, parseResources) {
 
-	zend_function *_5 = NULL;
+	zend_function *_4 = NULL;
 	HashTable *_2;
 	HashPosition _1;
-	zval *resources = NULL, *data, *rel = NULL, *_0, **_3, *_4 = NULL;
+	zval *resources = NULL, *data, *rel = NULL, *resource = NULL, *_0, **_3, *_5;
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &resources);
@@ -269,9 +269,14 @@ PHP_METHOD(Hal_Render_Json, parseResources) {
 	) {
 		ZEPHIR_GET_HMKEY(rel, _2, _1);
 		ZEPHIR_GET_HVALUE(resources, _3);
-		ZEPHIR_INIT_NVAR(_4);
-		zephir_call_method_p1_cache(_4, this_ptr, "arrayfromresources", &_5, resources);
-		zephir_array_update_zval(&data, rel, &_4, PH_COPY | PH_SEPARATE);
+		ZEPHIR_INIT_NVAR(resource);
+		zephir_call_method_p1_cache(resource, this_ptr, "arrayfromresources", &_4, resources);
+		if ((zephir_fast_count_int(resource TSRMLS_CC) == 1)) {
+			zephir_array_fetch_long(&_5, resource, 0, PH_NOISY | PH_READONLY TSRMLS_CC);
+			zephir_array_update_zval(&data, rel, &_5, PH_COPY | PH_SEPARATE);
+		} else {
+			zephir_array_update_zval(&data, rel, &resource, PH_COPY | PH_SEPARATE);
+		}
 	}
 	RETURN_CCTOR(data);
 

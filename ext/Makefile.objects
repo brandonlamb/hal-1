@@ -1,0 +1,52 @@
+hal.lo: /web/library/hal/ext/hal.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal.c -o hal.lo 
+kernel/main.lo: /web/library/hal/ext/kernel/main.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/main.c -o kernel/main.lo 
+kernel/memory.lo: /web/library/hal/ext/kernel/memory.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/memory.c -o kernel/memory.lo 
+kernel/exception.lo: /web/library/hal/ext/kernel/exception.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/exception.c -o kernel/exception.lo 
+kernel/hash.lo: /web/library/hal/ext/kernel/hash.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/hash.c -o kernel/hash.lo 
+kernel/debug.lo: /web/library/hal/ext/kernel/debug.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/debug.c -o kernel/debug.lo 
+kernel/backtrace.lo: /web/library/hal/ext/kernel/backtrace.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/backtrace.c -o kernel/backtrace.lo 
+kernel/object.lo: /web/library/hal/ext/kernel/object.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/object.c -o kernel/object.lo 
+kernel/array.lo: /web/library/hal/ext/kernel/array.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/array.c -o kernel/array.lo 
+kernel/string.lo: /web/library/hal/ext/kernel/string.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/string.c -o kernel/string.lo 
+kernel/fcall.lo: /web/library/hal/ext/kernel/fcall.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/fcall.c -o kernel/fcall.lo 
+kernel/alternative/fcall.lo: /web/library/hal/ext/kernel/alternative/fcall.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/alternative/fcall.c -o kernel/alternative/fcall.lo 
+kernel/file.lo: /web/library/hal/ext/kernel/file.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/file.c -o kernel/file.lo 
+kernel/operators.lo: /web/library/hal/ext/kernel/operators.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/operators.c -o kernel/operators.lo 
+kernel/concat.lo: /web/library/hal/ext/kernel/concat.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/kernel/concat.c -o kernel/concat.lo 
+hal/collection/link.lo: /web/library/hal/ext/hal/collection/link.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/collection/link.c -o hal/collection/link.lo 
+hal/collection/resource.lo: /web/library/hal/ext/hal/collection/resource.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/collection/resource.c -o hal/collection/resource.lo 
+hal/link.lo: /web/library/hal/ext/hal/link.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/link.c -o hal/link.lo 
+hal/render/json.lo: /web/library/hal/ext/hal/render/json.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/render/json.c -o hal/render/json.lo 
+hal/render/xml.lo: /web/library/hal/ext/hal/render/xml.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/render/xml.c -o hal/render/xml.lo 
+hal/renderinterface.lo: /web/library/hal/ext/hal/renderinterface.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/renderinterface.c -o hal/renderinterface.lo 
+hal/resource.lo: /web/library/hal/ext/hal/resource.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/resource.c -o hal/resource.lo 
+hal/resourcefactory.lo: /web/library/hal/ext/hal/resourcefactory.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/web/library/hal/ext $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /web/library/hal/ext/hal/resourcefactory.c -o hal/resourcefactory.lo 
+$(phplibdir)/hal.la: ./hal.la
+	$(LIBTOOL) --mode=install cp ./hal.la $(phplibdir)
+
+./hal.la: $(shared_objects_hal) $(HAL_SHARED_DEPENDENCIES)
+	$(LIBTOOL) --mode=link $(CC) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_hal) $(HAL_SHARED_LIBADD)
+

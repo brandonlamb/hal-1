@@ -8,6 +8,8 @@
 #define PHP_HAL_VERSION "0.0.1"
 #define PHP_HAL_EXTNAME "hal"
 
+
+
 ZEND_BEGIN_MODULE_GLOBALS(hal)
 
 	/* Memory */
@@ -27,7 +29,7 @@ ZEND_BEGIN_MODULE_GLOBALS(hal)
 	zval *global_true;
 	zval *global_false;
 	zval *global_null;
-
+	
 ZEND_END_MODULE_GLOBALS(hal)
 
 #ifdef ZTS

@@ -103,13 +103,13 @@ PHP_METHOD(Hal_Resource, __construct) {
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 0, 2, &uri_param, &data);
 
-	if (!uri_param) {
+	if (!uri_param || Z_TYPE_P(uri_param) == IS_NULL) {
 		ZEPHIR_INIT_VAR(uri);
 		ZVAL_EMPTY_STRING(uri);
 	} else {
 		zephir_get_strval(uri, uri_param);
 	}
-	if (!data) {
+	if (!data || Z_TYPE_P(data) == IS_NULL) {
 		data = ZEPHIR_GLOBAL(global_null);
 	}
 
@@ -204,7 +204,7 @@ PHP_METHOD(Hal_Resource, addResource) {
 
 		rel = rel_param;
 
-	if (!resource) {
+	if (!resource || Z_TYPE_P(resource) == IS_NULL) {
 		ZEPHIR_CPY_WRT(resource, ZEPHIR_GLOBAL(global_null));
 	}
 	ZEPHIR_SEPARATE_PARAM(resource);
@@ -280,7 +280,7 @@ PHP_METHOD(Hal_Resource, addLink) {
 
 		uri = uri_param;
 
-	if (!attributes) {
+	if (!attributes || Z_TYPE_P(attributes) == IS_NULL) {
 		attributes = ZEPHIR_GLOBAL(global_null);
 	}
 

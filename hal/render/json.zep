@@ -134,10 +134,17 @@ class Json implements Hal\RenderInterface
      */
     protected function parseResources(<Hal\Collection\Resource> resources)
     {
-        var data, rel;
+        var data, rel, resource;
         let data = [];
         for rel, resources in resources->getData() {
-            let data[rel] = this->arrayFromResources(resources);
+            let resource = this->arrayFromResources(resources);
+
+            // If the resource only has one element, then it should be returned as an object not array
+            if count(resource) == 1 {
+                let data[rel] = resource[0];
+            } else {
+                let data[rel] = resource;
+            }
         }
 
         return data;

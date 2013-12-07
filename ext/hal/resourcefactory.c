@@ -65,7 +65,7 @@ PHP_METHOD(Hal_ResourceFactory, fromJson) {
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 1, &text, &maxDepth_param);
 
-	if (!maxDepth_param) {
+	if (!maxDepth_param || Z_TYPE_P(maxDepth_param) == IS_NULL) {
 		maxDepth = 0;	} else {
 		maxDepth = zephir_get_intval(maxDepth_param);
 	}
