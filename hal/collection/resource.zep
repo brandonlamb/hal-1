@@ -67,15 +67,24 @@ class Resource implements \Countable
      *
      * @param string rel
      * @param Hal\Resource resource
+     * @param bool multi
      */
-    public function add(string rel, <Hal\Resource> resource) -> void
+    public function add(string rel, <Hal\Resource> resource, boolean multi = true) -> void
     {
         var value;
-        if fetch value, this->data[rel] {
+
+        // If setting an array element and the rel exists, add to the array
+        if multi == true && fetch value, this->data[rel] {
             let value[] = resource;
             let this->data[rel] = value;
         } else {
-            let this->data[rel] = [resource];
+            if multi == true {
+                // Adding an an array of resources and did not already exist, add new array with resource
+                let this->data[rel] = [resource];
+            } else {
+                // Adding a single resource
+                let this->data[rel] = resource;
+            }
         }
     }
 

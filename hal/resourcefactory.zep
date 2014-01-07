@@ -115,43 +115,4 @@ abstract class ResourceFactory
 
         return hal;
     }
-
-    /**
-     * Decode a application/hal+xml document into a Hal\Resource object.
-     *
-     * @param string text
-     * @return Hal\Resource
-     */
-    public static function fromXml(var text) -> <Hal\Resource>
-    {
-        var data, children, link, links, links2, embedded, rel, hal, attributes, href;
-
-        let data = new \SimpleXMLElement(text);
-        let children = data->children();
-        let links = clone children->link;
-        let embedded = clone children->resource;
-
-        unset(children->link);
-        unset(children->resource);
-
-        let hal = new Hal\Resource(data->attributes()->href, children->asXML());
-
-        for links2 in links {
-            if typeof links2 != "array" {
-                let links2 = [links2];
-            }
-
-            for link in links {
-                let attributes = link->attributes()->asXML();
-                let attributes = attributes["@attributes"];
-                let rel = attributes["rel"];
-                let href = attributes["href"];
-                unset(attributes["rel"]);
-                unset(attributes["href"]);
-                hal->addLink(rel, href, attributes);
-            }
-        }
-
-        return hal;
-    }
 }

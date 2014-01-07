@@ -130,14 +130,15 @@ class Resource
      *
      * @param string rel
      * @param Hal\Resource resource
+     * @param bool multi
      * @return Hal\Resource
      */
-    public function addResource(string! rel, <Hal\Resource> resource = null) -> <Hal\Resource>
+    public function addResource(string! rel, <Hal\Resource> resource = null, boolean multi = true) -> <Hal\Resource>
     {
         if typeof resource == "null" {
             let resource = new Hal\Resource();
         }
-        this->resources->add(rel, resource);
+        this->resources->add(rel, resource, multi);
         return this;
     }
 
@@ -201,7 +202,8 @@ class Resource
      * @param string rel
      * @todo - implement later
      */
-    public function getCurie(string! rel)
+    public function getCurie(string! rel) -> string
     {
+        return rel;
     }
 }

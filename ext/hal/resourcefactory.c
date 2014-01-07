@@ -17,7 +17,6 @@
 #include "kernel/array.h"
 #include "kernel/hash.h"
 #include "kernel/operators.h"
-#include "kernel/object.h"
 
 
 /**
@@ -40,7 +39,7 @@
  */
 ZEPHIR_INIT_CLASS(Hal_ResourceFactory) {
 
-	ZEPHIR_REGISTER_CLASS(Hal, ResourceFactory, hal, resourcefactory, hal_resourcefactory_method_entry, 0);
+	ZEPHIR_REGISTER_CLASS(Hal, ResourceFactory, hal, resourcefactory, hal_resourcefactory_method_entry, ZEND_ACC_EXPLICIT_ABSTRACT_CLASS);
 
 
 	return SUCCESS;
@@ -195,84 +194,6 @@ PHP_METHOD(Hal_ResourceFactory, fromJson) {
 					zephir_call_method_p2_cache_noret(hal, "addresource", &_27, rel, _20);
 				}
 			}
-		}
-	}
-	RETURN_CCTOR(hal);
-
-}
-
-/**
- * Decode a application/hal+xml document into a Hal\Resource object.
- *
- * @param string text
- * @return Hal\Resource
- */
-PHP_METHOD(Hal_ResourceFactory, fromXml) {
-
-	zend_function *_13 = NULL, *_14 = NULL, *_15 = NULL;
-	HashTable *_7, *_10;
-	HashPosition _6, _9;
-	zend_class_entry *_0;
-	zval *text, *data, *children, *link = NULL, *links, *links2 = NULL, *embedded, *rel, *hal, *attributes = NULL, *href, *_1, *_2, *_3, *_4, *_5, **_8, **_11, *_12 = NULL;
-
-	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &text);
-
-
-
-	ZEPHIR_INIT_VAR(data);
-	_0 = zend_fetch_class(SL("SimpleXMLElement"), ZEND_FETCH_CLASS_AUTO TSRMLS_CC);
-	object_init_ex(data, _0);
-	zephir_call_method_p1_noret(data, "__construct", text);
-	ZEPHIR_INIT_VAR(children);
-	zephir_call_method(children, data, "children");
-	ZEPHIR_OBS_VAR(_1);
-	zephir_read_property(&_1, children, SL("link"), PH_NOISY_CC);
-	ZEPHIR_INIT_VAR(links);
-	if (zephir_clone(links, _1 TSRMLS_CC) == FAILURE) {
-		RETURN_MM();
-	}
-	ZEPHIR_OBS_VAR(_2);
-	zephir_read_property(&_2, children, SL("resource"), PH_NOISY_CC);
-	ZEPHIR_INIT_VAR(embedded);
-	if (zephir_clone(embedded, _2 TSRMLS_CC) == FAILURE) {
-		RETURN_MM();
-	}
-	ZEPHIR_INIT_VAR(hal);
-	object_init_ex(hal, hal_resource_ce);
-	ZEPHIR_INIT_VAR(_3);
-	zephir_call_method(_3, data, "attributes");
-	ZEPHIR_OBS_VAR(_4);
-	zephir_read_property(&_4, _3, SL("href"), PH_NOISY_CC);
-	ZEPHIR_INIT_VAR(_5);
-	zephir_call_method(_5, children, "asxml");
-	zephir_call_method_p2_noret(hal, "__construct", _4, _5);
-	zephir_is_iterable(links, &_7, &_6, 0, 0);
-	for (
-		; zend_hash_get_current_data_ex(_7, (void**) &_8, &_6) == SUCCESS
-		; zend_hash_move_forward_ex(_7, &_6)
-	) {
-		ZEPHIR_GET_HVALUE(links2, _8);
-		if ((Z_TYPE_P(links2) != IS_ARRAY)) {
-			ZEPHIR_INIT_NVAR(links2);
-			array_init(links2);
-			zephir_array_fast_append(links2, links2);
-		}
-		zephir_is_iterable(links, &_10, &_9, 0, 0);
-		for (
-			; zend_hash_get_current_data_ex(_10, (void**) &_11, &_9) == SUCCESS
-			; zend_hash_move_forward_ex(_10, &_9)
-		) {
-			ZEPHIR_GET_HVALUE(link, _11);
-			ZEPHIR_INIT_NVAR(_12);
-			zephir_call_method_cache(_12, link, "attributes", &_13);
-			ZEPHIR_INIT_NVAR(attributes);
-			zephir_call_method_cache(attributes, _12, "asxml", &_14);
-			ZEPHIR_OBS_NVAR(attributes);
-			zephir_array_fetch_string(&attributes, attributes, SL("@attributes"), PH_NOISY TSRMLS_CC);
-			zephir_array_fetch_string(&rel, attributes, SL("rel"), PH_NOISY | PH_READONLY TSRMLS_CC);
-			zephir_array_fetch_string(&href, attributes, SL("href"), PH_NOISY | PH_READONLY TSRMLS_CC);
-			zephir_call_method_p3_cache_noret(hal, "addlink", &_15, rel, href, attributes);
 		}
 	}
 	RETURN_CCTOR(hal);

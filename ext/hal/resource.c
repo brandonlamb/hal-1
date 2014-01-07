@@ -187,15 +187,17 @@ PHP_METHOD(Hal_Resource, getLinks) {
  *
  * @param string rel
  * @param Hal\Resource resource
+ * @param bool multi
  * @return Hal\Resource
  */
 PHP_METHOD(Hal_Resource, addResource) {
 
-	zval *rel_param = NULL, *resource = NULL, *_0;
+	zend_bool multi;
+	zval *rel_param = NULL, *resource = NULL, *multi_param = NULL, *_0;
 	zval *rel = NULL;
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 1, &rel_param, &resource);
+	zephir_fetch_params(1, 1, 2, &rel_param, &resource, &multi_param);
 
 		if (Z_TYPE_P(rel_param) != IS_STRING) {
 				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'rel' must be a string") TSRMLS_CC);
@@ -208,6 +210,11 @@ PHP_METHOD(Hal_Resource, addResource) {
 		ZEPHIR_CPY_WRT(resource, ZEPHIR_GLOBAL(global_null));
 	}
 	ZEPHIR_SEPARATE_PARAM(resource);
+	if (!multi_param || Z_TYPE_P(multi_param) == IS_NULL) {
+		multi = 1;
+	} else {
+		multi = zephir_get_boolval(multi_param);
+	}
 
 
 	if ((Z_TYPE_P(resource) == IS_NULL)) {
@@ -216,7 +223,7 @@ PHP_METHOD(Hal_Resource, addResource) {
 		zephir_call_method_noret(resource, "__construct");
 	}
 	_0 = zephir_fetch_nproperty_this(this_ptr, SL("resources"), PH_NOISY_CC);
-	zephir_call_method_p2_noret(_0, "add", rel, resource);
+	zephir_call_method_p3_noret(_0, "add", rel, resource, (multi ? ZEPHIR_GLOBAL(global_true) : ZEPHIR_GLOBAL(global_false)));
 	RETURN_THIS();
 
 }
@@ -391,6 +398,7 @@ PHP_METHOD(Hal_Resource, getCurie) {
 
 
 
+	RETURN_CTOR(rel);
 
 }
 

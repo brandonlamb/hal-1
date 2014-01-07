@@ -23,6 +23,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_addresource, 0, 0, 1)
 	ZEND_ARG_INFO(0, rel)
 	ZEND_ARG_INFO(0, resource)
+	ZEND_ARG_INFO(0, multi)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_resource_getresource, 0, 0, 1)

@@ -67,7 +67,7 @@ PHP_METHOD(Hal_Render_Json, render) {
 
 
 	ZEPHIR_SINIT_VAR(_0);
-	ZVAL_STRING(&_0, "5.5.6-1+debphp.org~precise+2", 0);
+	ZVAL_STRING(&_0, "5.5.7-1+sury.org~precise+1", 0);
 	ZEPHIR_SINIT_VAR(_1);
 	ZVAL_STRING(&_1, "5.4.0", 0);
 	ZEPHIR_INIT_VAR(_2);
@@ -361,6 +361,7 @@ PHP_METHOD(Hal_Render_Json, stripAttributeMarker) {
 			ZEPHIR_INIT_NVAR(_6);
 			zephir_call_func_p2(_6, "substr", key, &_3);
 			zephir_array_update_zval(&data, _6, &value, PH_COPY | PH_SEPARATE);
+			zephir_array_unset(&data, key, PH_SEPARATE);
 		} else {
 			ZEPHIR_SINIT_NVAR(_3);
 			ZVAL_LONG(&_3, 0);
@@ -374,6 +375,7 @@ PHP_METHOD(Hal_Render_Json, stripAttributeMarker) {
 				ZEPHIR_INIT_NVAR(_7);
 				zephir_call_func_p2(_7, "substr", key, &_3);
 				zephir_array_update_zval(&data, _7, &value, PH_COPY | PH_SEPARATE);
+				zephir_array_unset(&data, key, PH_SEPARATE);
 			}
 		}
 		if ((Z_TYPE_P(value) == IS_ARRAY)) {

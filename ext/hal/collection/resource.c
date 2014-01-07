@@ -108,28 +108,39 @@ PHP_METHOD(Hal_Collection_Resource, get) {
  *
  * @param string rel
  * @param Hal\Resource resource
+ * @param bool multi
  */
 PHP_METHOD(Hal_Collection_Resource, add) {
 
-	zval *rel_param = NULL, *resource, *value, *_0, *_1;
+	zend_bool multi;
+	zval *rel_param = NULL, *resource, *multi_param = NULL, *value, *_0, *_1;
 	zval *rel = NULL;
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 2, 0, &rel_param, &resource);
+	zephir_fetch_params(1, 2, 1, &rel_param, &resource, &multi_param);
 
 		zephir_get_strval(rel, rel_param);
+	if (!multi_param || Z_TYPE_P(multi_param) == IS_NULL) {
+		multi = 1;
+	} else {
+		multi = zephir_get_boolval(multi_param);
+	}
 
 
 	ZEPHIR_OBS_VAR(value);
 	_0 = zephir_fetch_nproperty_this(this_ptr, SL("data"), PH_NOISY_CC);
-	if (zephir_array_isset_fetch(&value, _0, rel, 0 TSRMLS_CC)) {
+	if (((multi == 1) && zephir_array_isset_fetch(&value, _0, rel, 0 TSRMLS_CC))) {
 		zephir_array_append(&value, resource, PH_SEPARATE);
 		zephir_update_property_array(this_ptr, SL("data"), rel, value TSRMLS_CC);
 	} else {
-		ZEPHIR_INIT_VAR(_1);
-		array_init(_1);
-		zephir_array_fast_append(_1, resource);
-		zephir_update_property_array(this_ptr, SL("data"), rel, _1 TSRMLS_CC);
+		if ((multi == 1)) {
+			ZEPHIR_INIT_VAR(_1);
+			array_init(_1);
+			zephir_array_fast_append(_1, resource);
+			zephir_update_property_array(this_ptr, SL("data"), rel, _1 TSRMLS_CC);
+		} else {
+			zephir_update_property_array(this_ptr, SL("data"), rel, resource TSRMLS_CC);
+		}
 	}
 	ZEPHIR_MM_RESTORE();
 

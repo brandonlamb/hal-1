@@ -189,11 +189,11 @@ class Json implements Hal\RenderInterface
         for key, value in data {
             if substr(key, 0, 5) == "@xml:" {
                 let data[substr(key, 5)] = value;
-                unset(data[key]);
+                unset data[key];
             } else {
                 if substr(key, 0, 1) == "@" {
                     let data[substr(key, 1)] = value;
-                    unset (data[key]);
+                    unset data[key];
                 }
             }
 
