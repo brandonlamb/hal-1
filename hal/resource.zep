@@ -135,7 +135,7 @@ class Resource
      */
     public function addResource(string! rel, <Hal\Resource> resource = null, boolean multi = true) -> <Hal\Resource>
     {
-        if typeof resource == "null" {
+        if unlikely typeof resource != "Hal\\Resource" && typeof resource != "array" {
             let resource = new Hal\Resource();
         }
         this->resources->add(rel, resource, multi);

@@ -217,7 +217,7 @@ PHP_METHOD(Hal_Resource, addResource) {
 	}
 
 
-	if ((Z_TYPE_P(resource) == IS_NULL)) {
+	if ((0 == 1)) {
 		ZEPHIR_INIT_NVAR(resource);
 		object_init_ex(resource, hal_resource_ce);
 		zephir_call_method_noret(resource, "__construct");
