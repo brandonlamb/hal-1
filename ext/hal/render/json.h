@@ -10,7 +10,7 @@ PHP_METHOD(Hal_Render_Json, parseResources);
 PHP_METHOD(Hal_Render_Json, arrayFromResources);
 PHP_METHOD(Hal_Render_Json, stripAttributeMarker);
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_render_json_render, 0, 0, 2)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_hal_render_json_render, 0, 0, 1)
 	ZEND_ARG_INFO(0, resource)
 	ZEND_ARG_INFO(0, pretty)
 ZEND_END_ARG_INFO()

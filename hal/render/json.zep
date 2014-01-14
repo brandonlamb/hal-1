@@ -1,4 +1,4 @@
-/**
+    /**
  * This file is part of the Hal library
  *
  * (c) Ben Longden <ben@nocarrier.co.uk
@@ -29,7 +29,7 @@ class Json implements Hal\RenderInterface
      * @param bool pretty
      * @return string
      */
-    public function render(<Hal\Resource> resource, boolean pretty)
+    public function render(<Hal\Resource> resource, boolean pretty = false)
     {
         var data;
         int options = 0;
@@ -136,15 +136,15 @@ class Json implements Hal\RenderInterface
     {
         var data, rel, resource;
         let data = [];
-        for rel, resources in resources->getData() {
-            let resource = this->arrayFromResources(resources);
 
-            // If the resource only has one element, then it should be returned as an object not array
-            if count(resource) == 1 {
-                let data[rel] = resource[0];
+        for rel, resources in resources->getData() {
+            if typeof resources == "array" {
+                let resource = this->arrayFromResources(resources);
             } else {
-                let data[rel] = resource;
+                let resource = this->parseResource(resources);
             }
+
+            let data[rel] = resource;
         }
 
         return data;

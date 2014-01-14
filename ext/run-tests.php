@@ -24,7 +24,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: 7eb445eeb812fa7485608d9765294008f45d426c $ */
+/* $Id: d53c3b6c5ef3b2a2ba5dcbefb2fac1c9ae50957a $ */
 
 /* Sanity check to ensure that pcre extension needed by this script is available.
  * In the event it is not, print a nice error message indicating that this script will
@@ -241,6 +241,7 @@ $ini_overwrites = array(
 		'precision=14',
 		'memory_limit=128M',
 		'opcache.fast_shutdown=0',
+		'opcache.file_update_protection=0',
 	);
 
 function write_information($show_html)
@@ -661,7 +662,7 @@ if (isset($argc) && $argc > 1) {
 					$html_output = is_resource($html_file);
 					break;
 				case '--version':
-					echo '$Id: 7eb445eeb812fa7485608d9765294008f45d426c $' . "\n";
+					echo '$Id: d53c3b6c5ef3b2a2ba5dcbefb2fac1c9ae50957a $' . "\n";
 					exit(1);
 
 				default:
@@ -1090,6 +1091,7 @@ function system_with_timeout($commandline, $env = null, $stdin = null)
 		fwrite($pipes[0], $stdin);
 	}
 	fclose($pipes[0]);
+	unset($pipes[0]);
 
 	$timeout = $leak_check ? 300 : (isset($env['TEST_TIMEOUT']) ? $env['TEST_TIMEOUT'] : 60);
 

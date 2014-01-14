@@ -61,9 +61,13 @@ PHP_METHOD(Hal_Render_Json, render) {
 	zval *resource, *pretty_param = NULL, *data, _0 = zval_used_for_init, _1, *_2, *_3;
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 2, 0, &resource, &pretty_param);
+	zephir_fetch_params(1, 1, 1, &resource, &pretty_param);
 
+	if (!pretty_param || Z_TYPE_P(pretty_param) == IS_NULL) {
+		pretty = 0;
+	} else {
 		pretty = zephir_get_boolval(pretty_param);
+	}
 
 
 	ZEPHIR_SINIT_VAR(_0);
@@ -247,10 +251,10 @@ PHP_METHOD(Hal_Render_Json, parseLinks) {
  */
 PHP_METHOD(Hal_Render_Json, parseResources) {
 
-	zend_function *_4 = NULL;
+	zend_function *_4 = NULL, *_5 = NULL;
 	HashTable *_2;
 	HashPosition _1;
-	zval *resources = NULL, *data, *rel = NULL, *resource = NULL, *_0, **_3, *_5;
+	zval *resources = NULL, *data, *rel = NULL, *resource = NULL, *_0, **_3;
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &resources);
@@ -270,13 +274,12 @@ PHP_METHOD(Hal_Render_Json, parseResources) {
 		ZEPHIR_GET_HMKEY(rel, _2, _1);
 		ZEPHIR_GET_HVALUE(resources, _3);
 		ZEPHIR_INIT_NVAR(resource);
-		zephir_call_method_p1_cache(resource, this_ptr, "arrayfromresources", &_4, resources);
-		if ((zephir_fast_count_int(resource TSRMLS_CC) == 1)) {
-			zephir_array_fetch_long(&_5, resource, 0, PH_NOISY | PH_READONLY TSRMLS_CC);
-			zephir_array_update_zval(&data, rel, &_5, PH_COPY | PH_SEPARATE);
+		if ((Z_TYPE_P(resources) == IS_ARRAY)) {
+			zephir_call_method_p1_cache(resource, this_ptr, "arrayfromresources", &_4, resources);
 		} else {
-			zephir_array_update_zval(&data, rel, &resource, PH_COPY | PH_SEPARATE);
+			zephir_call_method_p1_cache(resource, this_ptr, "parseresource", &_5, resources);
 		}
+		zephir_array_update_zval(&data, rel, &resource, PH_COPY | PH_SEPARATE);
 	}
 	RETURN_CCTOR(data);
 
