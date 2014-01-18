@@ -135,6 +135,126 @@ PHP_METHOD(Hal_Resource, __construct) {
 }
 
 /**
+ * Magic getter for data
+ * @param string offset
+ * @return mixed
+ */
+PHP_METHOD(Hal_Resource, __get) {
+
+	zval *offset_param = NULL;
+	zval *offset = NULL;
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &offset_param);
+
+		if (Z_TYPE_P(offset_param) != IS_STRING) {
+				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'offset' must be a string") TSRMLS_CC);
+				RETURN_MM_NULL();
+		}
+
+		offset = offset_param;
+
+
+
+	zephir_call_method_p1(return_value, this_ptr, "get", offset);
+	RETURN_MM();
+
+}
+
+/**
+ * Get a value from data array
+ * @param string offset
+ * @return mixed
+ */
+PHP_METHOD(Hal_Resource, get) {
+
+	zval *offset_param = NULL, *_0, *_1, *_2;
+	zval *offset = NULL;
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &offset_param);
+
+		if (Z_TYPE_P(offset_param) != IS_STRING) {
+				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'offset' must be a string") TSRMLS_CC);
+				RETURN_MM_NULL();
+		}
+
+		offset = offset_param;
+
+
+
+	_0 = zephir_fetch_nproperty_this(this_ptr, SL("data"), PH_NOISY_CC);
+	if (zephir_array_isset(_0, offset)) {
+		_1 = zephir_fetch_nproperty_this(this_ptr, SL("data"), PH_NOISY_CC);
+		zephir_array_fetch(&_2, _1, offset, PH_NOISY | PH_READONLY TSRMLS_CC);
+		RETURN_CTOR(_2);
+	} else {
+		RETURN_MM_NULL();
+	}
+	ZEPHIR_MM_RESTORE();
+
+}
+
+/**
+ * Magic setter for data
+ * @param string offset
+ * @param mixed value
+ * @return mixed
+ */
+PHP_METHOD(Hal_Resource, __set) {
+
+	zval *offset_param = NULL, *value;
+	zval *offset = NULL;
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 2, 0, &offset_param, &value);
+
+		if (Z_TYPE_P(offset_param) != IS_STRING) {
+				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'offset' must be a string") TSRMLS_CC);
+				RETURN_MM_NULL();
+		}
+
+		offset = offset_param;
+
+
+
+	zephir_call_method_p1(return_value, this_ptr, "get", offset);
+	RETURN_MM();
+
+}
+
+/**
+ * Set a value in data array
+ * @param string offset
+ * @param mixed value
+ * @return Hal\Resource
+ */
+PHP_METHOD(Hal_Resource, set) {
+
+	zval *offset_param = NULL, *value = NULL;
+	zval *offset = NULL;
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 1, &offset_param, &value);
+
+		if (Z_TYPE_P(offset_param) != IS_STRING) {
+				zephir_throw_exception_string(spl_ce_InvalidArgumentException, SL("Parameter 'offset' must be a string") TSRMLS_CC);
+				RETURN_MM_NULL();
+		}
+
+		offset = offset_param;
+
+	if (!value || Z_TYPE_P(value) == IS_NULL) {
+		value = ZEPHIR_GLOBAL(global_null);
+	}
+
+
+	zephir_update_property_array(this_ptr, SL("data"), offset, value TSRMLS_CC);
+	RETURN_THIS();
+
+}
+
+/**
  * Get resource"s URI.
  *
  * @return string

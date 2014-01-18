@@ -86,6 +86,53 @@ class Resource
     }
 
     /**
+     * Magic getter for data
+     * @param string offset
+     * @return mixed
+     */
+    public function __get(string! offset)
+    {
+        return this->get(offset);
+    }
+
+    /**
+     * Get a value from data array
+     * @param string offset
+     * @return mixed
+     */
+    public function get(string! offset)
+    {
+        if isset this->data[offset] {
+            return this->data[offset];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Magic setter for data
+     * @param string offset
+     * @param mixed value
+     * @return mixed
+     */
+    public function __set(string! offset, var value)
+    {
+        return this->get(offset);
+    }
+
+    /**
+     * Set a value in data array
+     * @param string offset
+     * @param mixed value
+     * @return Hal\Resource
+     */
+    public function set(string! offset, var value = null) -> <Hal\Resource>
+    {
+        let this->data[offset] = value;
+        return this;
+    }
+
+    /**
      * Get resource"s URI.
      *
      * @return string
